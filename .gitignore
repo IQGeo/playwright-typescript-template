@@ -1,0 +1,10 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright/.cache/
+# environments/ 
+# For demo purposes, it's currently commented out. Uncomment 'environments/' to exclude pushing sensitive environment configs from version control during production.
+.env
+logs/
+reports/
