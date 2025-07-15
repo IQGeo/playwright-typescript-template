@@ -19,7 +19,7 @@
 		"test:custom": "ts-node utils/run-custom-tests.ts",
 		"test:report:playwright": "playwright show-report reports/playwright-report",
 		"test:report:custom": "open-cli reports/index.html",
-		"prepare": "husky"
+		"prepare": "husky && husky install"
 	},
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx,mjs}": [
