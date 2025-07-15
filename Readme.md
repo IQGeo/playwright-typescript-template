@@ -36,7 +36,7 @@ Before you start, ensure the following:
   - Click **Create repository from template**.
   - Clone your new repository locally:
    ```bash
-   git clone https://github.com/IQGeo/playwright-typescript-template.git
+   git clone https://new-repo.git
    cd new-repo
    ```
 
