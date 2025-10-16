@@ -9,7 +9,9 @@ export const test = base.extend<HomePageFixture>({
 	homePage: async ({ page }, use) => {
 		const url = process.env.PLAYWRIGHT_DEV_URL;
 		const homePage = new HomePage(page);
-		await homePage.navigate(url || "/");
+		await test.step("Navigate to the home page", async () => {
+			await homePage.navigate(url || "/");
+		});
 		await use(homePage);
 	},
 });

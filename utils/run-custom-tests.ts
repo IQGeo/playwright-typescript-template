@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { execSync } from "child_process";
-import { BROWSERS, ENVIRONMENTS, MODES, TEST_GROUPS, TEST_TYPES } from "./constants";
+import { BROWSERS, ENVIRONMENTS, MODES, TEST_GROUPS, TEST_TYPES } from "./configuration";
 
 inquirer
 	.prompt([

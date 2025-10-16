@@ -4,7 +4,7 @@
 	"description": "��#\u0000 \u0000p\u0000l\u0000a\u0000y\u0000w\u0000r\u0000i\u0000g\u0000h\u0000t\u0000-\u0000t\u0000y\u0000p\u0000e\u0000s\u0000c\u0000r\u0000i\u0000p\u0000t\u0000-\u0000t\u0000e\u0000m\u0000p\u0000l\u0000a\u0000t\u0000e\u0000\r\u0000 \u0000",
 	"main": "index.js",
 	"scripts": {
-		"setup": "npx playwright install && npm ci",
+		"setup": "npm ci && npx playwright install",
 		"prettier": "npx prettier --check .",
 		"prettier:fix": "npx prettier --write .",
 		"eslint": "npx eslint .",
@@ -19,6 +19,7 @@
 		"test:custom": "ts-node utils/run-custom-tests.ts",
 		"test:report:playwright": "playwright show-report reports/playwright-report",
 		"test:report:custom": "open-cli reports/index.html",
+		"test:report:detailed": "open-cli reports/detailed-report.html",
 		"prepare": "husky && husky install"
 	},
 	"lint-staged": {
@@ -39,9 +40,9 @@
 	},
 	"homepage": "https://github.com/IQGeo/playwright-typescript-template#readme",
 	"devDependencies": {
-		"@playwright/test": "^1.53.1",
-		"@types/node": "^24.0.3",
 		"@eslint/js": "^9.24.0",
+		"@playwright/test": "^1.56.0",
+		"@types/node": "^24.0.3",
 		"@typescript-eslint/eslint-plugin": "^8.29.1",
 		"@typescript-eslint/parser": "^8.29.1",
 		"eslint": "^9.24.0",

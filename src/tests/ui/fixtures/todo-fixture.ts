@@ -9,7 +9,9 @@ export const test = base.extend<HomePageFixture>({
 	todoPage: async ({ page }, use) => {
 		const url = process.env.DEMO_PLAYWRIGHT_DEV_URL;
 		const todoPage = new TodoPage(page);
-		await todoPage.navigate(url || "/");
+		await test.step("Navigate to the todo page", async () => {
+			await todoPage.navigate(url || "/");
+		});
 		await use(todoPage);
 	},
 });
