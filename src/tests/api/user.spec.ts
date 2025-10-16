@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { TAGS } from "@utils/constants";
+import { TAGS } from "@utils/configuration";
 import { UserApi } from "pages/api";
-import { User } from "shared/types";
+import { NEW_USER } from "shared/mock-data/user-data";
 
 test.describe("User API Tests", () => {
 	let userApi: UserApi;
@@ -16,10 +16,27 @@ test.describe("User API Tests", () => {
 			tag: TAGS.REGRESSION,
 		},
 		async () => {
-			const response = await userApi.getUser(1);
-			const user = await response.json();
-			expect(response.ok()).toBeTruthy();
-			expect(user.name).toBeDefined();
+			await test.step("Request users api to get user by id and validate results", async () => {
+				const response = await userApi.getUser(1);
+				const user = await response.json();
+				expect(response.ok()).toBeTruthy();
+				expect(user.name).toBeDefined();
+			});
+		},
+	);
+
+	test(
+		"should not fetch user by ID - 0 (negative case)",
+		{
+			tag: TAGS.REGRESSION,
+		},
+		async () => {
+			await test.step("Request users api to get user by id and validate results", async () => {
+				const response = await userApi.getUser(0);
+				const user = await response.json();
+				expect(response.ok()).toBeTruthy();
+				expect(user.name).toBeDefined();
+			});
 		},
 	);
 
@@ -29,14 +46,12 @@ test.describe("User API Tests", () => {
 			tag: TAGS.INTERNAL,
 		},
 		async () => {
-			const newUser: User = {
-				name: "John Doe",
-				email: "john@example.com",
-			};
-			const response = await userApi.createUser(newUser);
-			const user = await response.json();
-			expect(response.ok()).toBeTruthy();
-			expect(user.name).toBe("John Doe");
+			await test.step("Request users api to create a new user and validate results", async () => {
+				const response = await userApi.createUser(NEW_USER);
+				const user = await response.json();
+				expect(response.ok()).toBeTruthy();
+				expect(user.name).toBe("John Doe");
+			});
 		},
 	);
 });

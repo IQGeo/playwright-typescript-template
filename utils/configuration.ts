@@ -37,5 +37,6 @@ export const MODES = [
 	{ name: "Debug", value: "--debug" },
 ];
 
-export const JIRA_PROJECT_ID = 1000;
-export const JIRA_PROJECT_ISSUE_TYPE_ID = 1000;
+export const JIRA_PROJECT_ID = 1000; // Replace with your actual JIRA project ID
+export const JIRA_PROJECT_ISSUE_TYPE_ID = 1000; // Replace with your actual JIRA issue type ID (e.g., Bug, Task)
+export const JIRA_API_BASE_URL = "https://your-domain.atlassian.net/"; // Replace with your JIRA instance

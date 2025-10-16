@@ -4,7 +4,6 @@ pipeline {
     environment {
         PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.52.0-noble'
         WORK_DIR = '/app'
-        REPORT_DIR = 'reports/playwright'
     }
 
     stages {
@@ -61,6 +60,12 @@ pipeline {
                         }
                         return creds
                 }
+                        def baseUrl = 'https://your-jenkins-url/' // Replace with your Jenkins base URL
+                        def jobPath = env.JOB_NAME.tokenize('/')
+                                      .collect { "job/${it.replaceAll(' ', '%20')}" }
+                                      .join('/')
+                        def reportUrl = "${baseUrl}/${jobPath}/${env.BUILD_NUMBER}"
+                        def reportDir = 'reports/'
 
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     script {
@@ -72,8 +77,10 @@ pipeline {
                             -w ${WORK_DIR} \
                             -e JENKINS=true \
                             -e ENVIRONMENT="${params.ENVIRONMENT}" \
-                            -e PLAYWRIGHT_HTML_REPORT_DIR="${REPORT_DIR}/playwright-report" \
-                            -e CUSTOM_REPORT_DIR="${REPORT_DIR}" \
+                            -e PLAYWRIGHT_HTML_REPORT_DIR="${reportDir}/playwright-report" \
+                            -e CUSTOM_REPORT_DIR="${reportDir}/custom-report" \
+                            -e JENKINS_URL="${reportUrl}" \
+                            -e JENKINS_TEST_RESULTS="${reportUrl}/artifact" \
                             -e ${prefix}_URL="${creds.URL}" \
                             -e ${prefix}_USERNAME="${creds.USERNAME}" \
                             -e ${prefix}_PASSWORD="${creds.PASSWORD}" \

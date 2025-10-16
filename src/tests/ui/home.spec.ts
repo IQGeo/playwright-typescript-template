@@ -1,4 +1,4 @@
-import { TAGS } from "@utils/constants";
+import { TAGS } from "@utils/configuration";
 import { test } from "./fixtures/home-fixture";
 
 test.describe("Home", () => {
@@ -8,7 +8,9 @@ test.describe("Home", () => {
 			tag: TAGS.SMOKE,
 		},
 		async ({ homePage }) => {
-			await homePage.expectToHaveTitle(/Playwright/);
+			await test.step("Verify the home page title", async () => {
+				await homePage.expectToHaveTitle(/Playwright/);
+			});
 		},
 	);
 
@@ -18,8 +20,10 @@ test.describe("Home", () => {
 			tag: TAGS.SMOKE,
 		},
 		async ({ homePage }) => {
-			await homePage.clickGetStarted();
-			await homePage.expectInstallationHeadingVisible();
+			await test.step("Click on Get Started link and verify navigation", async () => {
+				await homePage.clickGetStarted();
+				await homePage.expectInstallationHeadingVisible();
+			});
 		},
 	);
 });
