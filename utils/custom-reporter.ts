@@ -18,7 +18,7 @@ interface TestResultData {
 }
 
 export default class CustomReporter implements Reporter {
-	private readonly isJenkins: boolean = true;
+	private readonly isJenkins: boolean = !!process.env.JENKINS;
 	private readonly jenkinsTestResultsPath = process.env.JENKINS_TEST_RESULTS;
 	private readonly jenkinsReportsPath = process.env.JENKINS_URL;
 	private readonly results: TestResultData[] = [];
@@ -103,6 +103,7 @@ export default class CustomReporter implements Reporter {
 	private generateReportRow = (r: TestResultData, idx: number, includeActionButtons: boolean): string => {
 		const projectId = JIRA_PROJECT_ID ?? null;
 		const issueTypeId = JIRA_PROJECT_ISSUE_TYPE_ID ?? null;
+		const jiraBaseUrl = JIRA_API_BASE_URL ?? null;
 
 		const encodedData = Buffer.from(
 			JSON.stringify({
@@ -119,7 +120,7 @@ export default class CustomReporter implements Reporter {
 		const bugButtonColumn = includeActionButtons
 			? r.status === "failed"
 				? `<td>
-    <button onclick="createBug(${idx}, '${projectId}', '${issueTypeId}')">Create Bug</button>
+    <button onclick="createBug(${idx}, ${jiraBaseUrl}, '${projectId}', '${issueTypeId}')">Create Bug</button>
 		<input type="hidden" id="bug-data-${idx}" value="${encodedData}" />
       </td>`
 				: "<td></td>"
@@ -354,7 +355,7 @@ export default class CustomReporter implements Reporter {
 </script>
      
  <script>
-  function createBug(index, projectId, issueTypeId) {
+  function createBug(index, jiraBaseUrl, projectId, issueTypeId) {
    const element = document.getElementById('bug-data-' + index);
     const encoded = element.value;
     const data = JSON.parse(atob(encoded));
@@ -371,8 +372,6 @@ export default class CustomReporter implements Reporter {
     if (data.error) {
       description += '\\n\\n{code}\\n' + data.error + '\\n{code}';
     }
-
-  const jiraBaseUrl = JIRA_API_BASE_URL ?? null;
 
 	const jiraUrl = jiraBaseUrl + '/secure/CreateIssueDetails%21init.jspa?pid=' + projectId + '&issuetype=' + issueTypeId + '&summary=' + summary + '&description='+ encodeURIComponent(description);
     window.open(jiraUrl, '_blank');
