@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.52.0-noble'
+        PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.56.0-noble'
         WORK_DIR = '/app'
         REPORT_DIR = 'reports/'
     }
