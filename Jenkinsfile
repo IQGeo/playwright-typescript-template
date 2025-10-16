@@ -5,6 +5,7 @@ pipeline {
         PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.56.0-noble'
         WORK_DIR = '/app'
         REPORT_DIR = 'reports/'
+        BASE_URL = 'https://your-jenkins-instance.com' // Replace with your Jenkins base URL
     }
 
     stages {
