@@ -120,7 +120,7 @@ export default class CustomReporter implements Reporter {
 		const bugButtonColumn = includeActionButtons
 			? r.status === "failed"
 				? `<td>
-    <button onclick="createBug(${idx}, ${jiraBaseUrl}, '${projectId}', '${issueTypeId}')">Create Bug</button>
+    <button onclick="createBug(${idx}, '${jiraBaseUrl}', '${projectId}', '${issueTypeId}')">Create Bug</button>
 		<input type="hidden" id="bug-data-${idx}" value="${encodedData}" />
       </td>`
 				: "<td></td>"
